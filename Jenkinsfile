@@ -5,6 +5,10 @@ pipeline {
         AWS_CREDENTIALS = credentials('3efbf7cd-2994-4221-8ced-f72752fbc54a') // Use Jenkins AWS credential ID
         GITHUB_CREDENTIALS = credentials('8f562aa3-4064-4ab9-b185-0a628c7ff735') // Use Jenkins GitHub credential ID
         DOCKER_IMAGE = "skameshh/microservices"
+	DOCKER_IMAGE_USER = "skameshh/microservices-user"
+        ECS_CLUSTER = "microservices-cluster"
+        ECS_SERVICE = "microservices-service"
+        ECS_TASK = "microservices-task"
     }
 
     stages {
@@ -46,5 +50,16 @@ pipeline {
                 }
             }
         }
+
+
+	stage('Update ECS Service') {
+            steps {
+                sh '''
+                aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment --region us-east-1
+                '''
+            }
+        }
+
+
     }
 }
