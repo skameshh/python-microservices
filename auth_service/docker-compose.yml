@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 services:
   mysql:
     image: mysql:5.7
@@ -11,7 +11,7 @@ services:
       - "3306:3306"
 
   auth_service:
-    build: ./auth_service
+    build: .
     container_name: auth_service
     restart: always
     depends_on:
@@ -20,14 +20,3 @@ services:
       DATABASE_URL: mysql://root:password@mysql/auth_db
     ports:
       - "8000:8000"
-
-  user_service:
-    build: ./user_service
-    container_name: user_service
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      DATABASE_URL: mysql://root:password@mysql/user_db
-    ports:
-      - "8001:8001"

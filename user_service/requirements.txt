@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+SQLAlchemy
+mysqlclient
+PyJWT
+python-dotenv
+requests
